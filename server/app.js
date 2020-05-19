@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const urlencodedParser = bodyParser.urlencoded({extended: false});
 
+
 const pool = mysql.createPool({
     host: "std-mysql.ist.mospolytech.ru",
     user: "std_272",
@@ -23,13 +24,6 @@ app.use(async (req, res, next) => {
     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next();
 });
-
-app.get('/', (req, res) => {
-    pool.query("SELECT * FROM doctors WHERE lastName='Дыбенко'",
-        function (err, results) {
-            res.send(results)
-        });
-})
 
 app.post('/login', (req, res) => {
     pool.query(

@@ -58,7 +58,7 @@
 
     button {
         margin: 10px;
-        background-color: #000;
+        background-color: #3b464d;
         color: #fff;
         padding: 10px;
         font-size: 15px;

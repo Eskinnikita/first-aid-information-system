@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login'
 import Home from '../views/Home'
+import Patients from "../views/Patients"
 
 import store from '../store/index'
 
@@ -36,6 +37,12 @@ const routes = [
         name: 'Login',
         component: Login,
         beforeEnter: ifNotAuthenticated
+    },
+    {
+        path: '/patients',
+        name: 'Patients',
+        component: Patients,
+        beforeEnter: ifAuthenticated
     }
 ]
 

@@ -34,6 +34,7 @@
     .header {
         height: auto;
         border-bottom: 1px solid #000;
+        margin-bottom: 20px;
 
         &__wrapper {
             display: flex;
