@@ -1,32 +1,75 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="app">
+        <header-comp v-if="hiddenHeader"/>
+        <div class="wrapper">
+            <router-view/>
+        </div>
     </div>
-    <router-view/>
-  </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+    import Header from "./components/Header"
+    export default {
+        components: {
+            'header-comp': Header
+        },
+        computed: {
+            hiddenHeader() {
+                console.log(this.$router)
+                return this.$route.name !== 'Login'
+            }
+        }
     }
-  }
-}
+</script>
+
+<style lang="scss">
+    #app {
+        font-family: sans-serif;
+    }
+
+    .wrapper {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    a {
+        color: #000;
+        text-decoration: none;
+    }
+
+    .input-block {
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+
+        label {
+
+        }
+
+        input {
+            font-size: 15px;
+            margin-top: 5px;
+            padding: 5px 10px;
+            box-sizing: border-box;
+            border: 1px solid #bebebe;
+        }
+    }
+
+    button {
+        margin: 10px;
+        background-color: #000;
+        color: #fff;
+        padding: 10px;
+        font-size: 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
 </style>
