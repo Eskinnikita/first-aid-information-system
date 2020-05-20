@@ -34,6 +34,7 @@
                 return [day,month,year].join('.');
             },
             goToVisitDetails() {
+                this.$store.commit('SET_BACK_STATUS', 1)
                 this.$router.push(`/visit-view/${this.visit.id}`)
             }
         },

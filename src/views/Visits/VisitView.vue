@@ -2,7 +2,7 @@
     <div class="visit-view">
         <div class="visit-view__controls">
             <div class="controls__back">
-                <button @click="() => {}">Назад</button>
+                <button @click="goBack">Назад</button>
             </div>
             <div class="controls__patient-control">
                 <button @click="updateVisit(visit.id)">Изменить</button>
@@ -36,7 +36,16 @@
             const id = this.$route.params.id
             this.$store.dispatch('getVisitById', id)
         },
+        data() {
+            return {
+            }
+        },
         methods: {
+            goBack() {
+                this.visitsStore.backStatus === 1
+                    ? this.$router.push(`/patient-view/${this.visit.patientInfo.id}`)
+                    : this.$router.push(`/visits`)
+            },
             updateVisit(id) {
                 this.$store.dispatch('getVisitToUpdate', id)
                     .then(() => {

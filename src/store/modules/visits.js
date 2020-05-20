@@ -2,7 +2,8 @@ import apiService from "../../services/apiService"
 
 export const state = {
     visit: null,
-    visitToUpdate: null
+    visitToUpdate: null,
+    backStatus: null
 }
 export const mutations = {
     SET_STATUS() {
@@ -16,6 +17,9 @@ export const mutations = {
     },
     SET_EMPTY_VISIT_TO_UPDATE(state) {
         state.visitToUpdate = null
+    },
+    SET_BACK_STATUS(state, status) {
+        state.backStatus = status
     }
 }
 export const actions = {
