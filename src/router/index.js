@@ -2,7 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login'
 import Home from '../views/Home'
-import Patients from "../views/Patients"
+import Patients from "../views/Patients/Patients"
+import PatientView from "../views/Patients/PatientView"
+import PatientForm from "../views/Patients/PatientForm"
 
 import store from '../store/index'
 
@@ -42,6 +44,19 @@ const routes = [
         path: '/patients',
         name: 'Patients',
         component: Patients,
+        beforeEnter: ifAuthenticated
+    },
+    {
+        path: '/patient-form',
+        name: 'PatientForm',
+        component: PatientForm,
+        beforeEnter: ifAuthenticated
+    },
+    {
+        path: '/patient-view/:id',
+        name: 'Patient-View',
+        props: true,
+        component: PatientView,
         beforeEnter: ifAuthenticated
     }
 ]

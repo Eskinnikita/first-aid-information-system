@@ -16,6 +16,10 @@
                         uri: '/patients'
                     },
                     {
+                        content: 'Посещения',
+                        uri: ''
+                    },
+                    {
                         content: 'Медикаменты',
                         uri: ''
                     },

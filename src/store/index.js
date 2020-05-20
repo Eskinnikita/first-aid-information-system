@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import apiService from "../services/apiService"
 import createPersistedState from "vuex-persistedstate";
 
+import * as patientsStore from "./modules/patients"
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -24,8 +26,8 @@ export default new Vuex.Store({
         localStorage.setItem('user', JSON.stringify(res.data[0]))
         commit('SET_USER', res.data[0])
       }
-      catch(err) {
-        console.log(err)
+      catch(e) {
+        console.log(e)
       }
     },
     async logoutUser({commit}) {
@@ -41,4 +43,7 @@ export default new Vuex.Store({
         storage: window.sessionStorage
       }
   )],
+  modules: {
+    patientsStore
+  }
 })

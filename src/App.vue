@@ -15,7 +15,6 @@
         },
         computed: {
             hiddenHeader() {
-                console.log(this.$router)
                 return this.$route.name !== 'Login'
             }
         }
@@ -37,6 +36,16 @@
         text-decoration: none;
     }
 
+    .thin-container {
+        margin: 0 auto;
+        max-width: 600px;
+    }
+
+    .form-container {
+        margin: 0 auto;
+        max-width: 500px;
+    }
+
     .input-block {
         text-align: left;
         display: flex;
@@ -48,6 +57,14 @@
         }
 
         input {
+            font-size: 15px;
+            margin-top: 5px;
+            padding: 5px 10px;
+            box-sizing: border-box;
+            border: 1px solid #bebebe;
+        }
+
+        select {
             font-size: 15px;
             margin-top: 5px;
             padding: 5px 10px;
@@ -70,6 +87,11 @@
         &:hover {
             opacity: 0.7;
         }
+    }
+
+    .required-sign {
+        color: red;
+        padding-left: 3px;
     }
 
 </style>

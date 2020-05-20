@@ -33,7 +33,7 @@
 <style lang="scss" scoped>
     .header {
         height: auto;
-        border-bottom: 1px solid #000;
+        border-bottom: 1px solid #bebebe;
         margin-bottom: 20px;
 
         &__wrapper {
