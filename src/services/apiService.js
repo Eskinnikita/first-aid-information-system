@@ -26,7 +26,9 @@ export default {
         return apiClient.post('/patients', patient)
     },
     deletePatient(id) {
-        console.log('DELETEE', id)
         return apiClient.delete(`/patients/${id}`)
+    },
+    updatePatient(newPatient) {
+        return apiClient.put('/patients', newPatient)
     }
 }

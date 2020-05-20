@@ -5,7 +5,7 @@
                 <button @click="goToPatientsList">Назад</button>
             </div>
             <div class="controls__patient-control">
-                <button>Изменить</button>
+                <button @click="updatePatient(patient.id)">Изменить</button>
                 <button @click="deletePatient(patient.id)">Удалить</button>
             </div>
         </div>
@@ -55,6 +55,10 @@
             deletePatient(id) {
                 this.$store.dispatch('deletePatient', id)
                 .then(() => {this.$router.push('/patients')})
+            },
+            updatePatient(id) {
+                this.$store.dispatch('getPatientToUpdate', id)
+                    .then(() => {this.$router.push('/patient-form')})
             }
         },
         computed: {

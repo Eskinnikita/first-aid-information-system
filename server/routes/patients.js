@@ -48,13 +48,33 @@ router.post('/', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     const id = req.params.id
-    console.log('IIIIIDDD', id)
     pool.query(`DELETE FROM patients WHERE id=${id}`,
         function (err, results) {
             if (err) {
-                res.status(500).send({message: 'Ошибка авторизации', status: 'error'})
+                res.status(500).send({message: 'Ошибка удаления', status: 'error'})
             } else {
-                res.status(200).send({message: 'Успешно добавлено', status: 'success'})
+                res.status(201).send({message: 'Успешно удалено', status: 'success'})
+            }
+        });
+})
+
+router.put('/', (req, res) => {
+    pool.query(`UPDATE patients SET
+    medicalPolicy='${req.body.medicalPolicy}',
+    firstName='${req.body.firstName}', 
+    lastName='${req.body.lastName}', 
+    middleName='${req.body.middleName}', 
+    gender=${req.body.gender}, 
+    birthDate='${req.body.birthDate}', 
+    groupNum='${req.body.groupNum}', 
+    phoneNumber='${req.body.phoneNumber}'
+    WHERE id=${req.body.id}
+    `,
+        function (err, results) {
+            if (err) {
+                res.status(500).send({message: 'Ошибка обновления', status: 'error'})
+            } else {
+                res.status(200).send({message: 'Успешно обновлено', status: 'success'})
             }
         });
 })

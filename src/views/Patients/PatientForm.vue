@@ -36,19 +36,30 @@
             <label for="phoneNumber">Номер телефона</label>
             <input v-model="patient.phoneNumber" type="text" id="phoneNumber">
         </div>
-        <button style="width: 150px" @click="addPatient">Добавить</button>
+        <button style="width: 150px" v-if="!this.patientsStore.patientToUpdate" @click="addPatient">Добавить</button>
+        <button style="width: 200px" v-else @click="updatePatient">Сохранить изменения</button>
     </div>
 </template>
 
 <script>
+    import {mapState} from 'vuex'
+
     export default {
         created() {
-            let today = new Date();
-            const dd = String(today.getDate()).padStart(2, '0');
-            const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            const yyyy = today.getFullYear();
-            this.patient.birthDate = `${yyyy}-${mm}-${dd}`;
+            // let today = new Date();
+            // const dd = String(today.getDate()).padStart(2, '0');
+            // const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            // const yyyy = today.getFullYear();
+            // this.patient.birthDate = `${yyyy}-${mm}-${dd}`;
+            this.patient.birthDate = this.formatDate(new Date())
             console.log(this.patient.birthDate)
+        },
+        mounted() {
+            if (this.patientsStore.patientToUpdate !== null) {
+                this.patientsStore.patientToUpdate.gender = this.patientsStore.patientToUpdate.gender !== 0
+                this.patientsStore.patientToUpdate.birthDate = this.convertDateFromJsToSql(this.patientsStore.patientToUpdate.birthDate)
+                this.patient = this.patientsStore.patientToUpdate
+            }
         },
         data() {
             return {
@@ -67,9 +78,39 @@
         methods: {
             addPatient() {
                 this.$store.dispatch('addPatient', this.patient)
+            },
+            updatePatient() {
+                this.$store.dispatch('updatePatient', this.patient).then(() => {
+                    this.$router.push(`/patient-view/${this.patient.id}`)
+                })
+            },
+            formatDate(date) {
+                let today = date;
+                const dd = String(today.getDate()).padStart(2, '0');
+                const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                const yyyy = today.getFullYear();
+                return `${yyyy}-${mm}-${dd}`
+            },
+            convertDateFromJsToSql(date) {
+                var d = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+
+                if (month.length < 2)
+                    month = '0' + month;
+                if (day.length < 2)
+                    day = '0' + day;
+
+                return [year, month, day].join('-');
             }
         },
-        computed: {}
+        computed: {
+            ...mapState(['patientsStore'])
+        },
+        beforeDestroy() {
+            this.$store.commit('EMPTY_EMPTY_PATIENT_TO_UPDATE')
+        }
     }
 </script>
 

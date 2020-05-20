@@ -2,7 +2,8 @@ import apiService from "../../services/apiService"
 
 export const state = {
     patients: null,
-    patient: null
+    patient: null,
+    patientToUpdate: null
 }
 export const mutations = {
     SET_PATIENTS(state, patients) {
@@ -16,6 +17,12 @@ export const mutations = {
     },
     SET_EMPTY_PATIENT(state) {
         state.patient = null
+    },
+    SET_PATIENT_TO_UPDATE(state, patient) {
+        state.patientToUpdate = patient
+    },
+    EMPTY_EMPTY_PATIENT_TO_UPDATE(state) {
+        state.patientToUpdate = null
     }
 }
 export const actions = {
@@ -49,6 +56,23 @@ export const actions = {
             const res = await apiService.deletePatient(id)
             console.log(res)
             commit('SET_EMPTY_PATIENT')
+        } catch (e) {
+            console.log(e)
+        }
+    },
+    async getPatientToUpdate({commit}, id) {
+        try {
+            const res = await apiService.getPatientById(id)
+            commit('SET_PATIENT_TO_UPDATE', res.data[0])
+        } catch (e) {
+            console.log(e)
+        }
+    },
+    async updatePatient({commit}, patient) {
+        try {
+            const res = await apiService.updatePatient(patient)
+            console.log(res)
+            commit('EMPTY_EMPTY_PATIENT_TO_UPDATE')
         } catch (e) {
             console.log(e)
         }
