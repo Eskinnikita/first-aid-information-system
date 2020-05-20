@@ -53,7 +53,7 @@
             flex-direction: column;
 
             button {
-                margin: 20px 40px;
+                margin: 20px 0px;
             }
         }
     }

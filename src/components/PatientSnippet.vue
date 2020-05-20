@@ -5,7 +5,7 @@
                 {{patient.lastName}} {{patient.firstName}} {{patient.middleName}}
             </div>
             <div class="main-info__group">
-                {{patient.groupNum}}
+                Группа: {{patient.groupNum}}
             </div>
         </div>
         <div class="patient-snippet__additional-info">

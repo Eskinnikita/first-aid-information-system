@@ -24,8 +24,8 @@
         <div class="input-block">
             <label for="gender">Пол<span class="required-sign">*</span></label>
             <select v-model="patient.gender" type="date" id="gender">
-                <option value="false">Мужской</option>
-                <option value="true">Женский</option>
+                <option value="0">Мужской</option>
+                <option value="1">Женский</option>
             </select>
         </div>
         <div class="input-block">
@@ -56,7 +56,6 @@
         },
         mounted() {
             if (this.patientsStore.patientToUpdate !== null) {
-                this.patientsStore.patientToUpdate.gender = this.patientsStore.patientToUpdate.gender !== 0
                 this.patientsStore.patientToUpdate.birthDate = this.convertDateFromJsToSql(this.patientsStore.patientToUpdate.birthDate)
                 this.patient = this.patientsStore.patientToUpdate
             }
@@ -69,7 +68,7 @@
                     firstName: '',
                     middleName: '',
                     birthDate: '',
-                    gender: true,
+                    gender: 0,
                     groupNum: '',
                     phoneNumber: ''
                 }
@@ -109,13 +108,10 @@
             ...mapState(['patientsStore'])
         },
         beforeDestroy() {
-            this.$store.commit('EMPTY_EMPTY_PATIENT_TO_UPDATE')
+            this.$store.commit('EMPTY_PATIENT_TO_UPDATE')
         }
     }
 </script>
 
 <style scoped>
-    .form-container {
-        text-align: center;
-    }
 </style>

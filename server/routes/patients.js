@@ -13,6 +13,17 @@ router.get('/', (req, res) => {
         });
 })
 
+// router.get('/:id', (req, res) => {
+//     const id = req.params.id
+//     pool.query(`SELECT * FROM patients WHERE id=${id}`,
+//         function (err, results) {
+//             if (err) {
+//                 res.status(500).send({message: 'Ошибка', status: 'error'})
+//             } else {
+//                 res.status(200).send(results)
+//             }
+//         });
+// })
 router.get('/:id', (req, res) => {
     const id = req.params.id
     pool.query(`SELECT * FROM patients WHERE id=${id}`,
@@ -20,7 +31,16 @@ router.get('/:id', (req, res) => {
             if (err) {
                 res.status(500).send({message: 'Ошибка', status: 'error'})
             } else {
-                res.status(200).send(results)
+                const patient = results[0]
+                pool.query(`SELECT * FROM visits WHERE patientId=${id}`,
+                    function (err, visits) {
+                        if (err) {
+                            res.status(500).send({message: 'Ошибка', status: 'error'})
+                        } else {
+                            patient.visits = visits
+                            res.status(200).send(patient)
+                        }
+                    });
             }
         });
 })

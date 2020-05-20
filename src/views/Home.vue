@@ -17,7 +17,7 @@
                     },
                     {
                         content: 'Посещения',
-                        uri: ''
+                        uri: '/visits'
                     },
                     {
                         content: 'Медикаменты',
@@ -40,9 +40,12 @@
 
 <style lang="scss" scoped>
     .control-panel {
-        display: grid;
-        grid-template-columns: repeat(3, auto);
-
+        /*display: grid;*/
+        /*grid-template-columns: repeat(3, auto);*/
+        display: flex;
+        flex-direction: column;
+        width: 500px;
+        margin: 0 auto;
         button {
             height: 50px;
         }

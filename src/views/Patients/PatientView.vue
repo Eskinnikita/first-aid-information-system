@@ -9,6 +9,7 @@
                 <button @click="deletePatient(patient.id)">Удалить</button>
             </div>
         </div>
+        <h2>Информация о пациенте</h2>
         <div class="patient-view__row">
             <strong>Номер полиса:</strong> {{ this.patient.medicalPolicy }}
         </div>
@@ -16,10 +17,10 @@
             <strong>ФИО:</strong> {{ this.patient.lastName }} {{ this.patient.firstName }} {{ this.patient.middleName }}
         </div>
         <div class="patient-view__row">
-            <strong>Дата рождения:</strong> {{ this.patient.birthDate }}
+            <strong>Дата рождения:</strong> {{ convertDateFromJsToSql(this.patient.birthDate) }}
         </div>
         <div class="patient-view__row">
-            <strong>Пол:</strong> {{ this.patient.gender === true ? 'женский' : 'мужской' }}
+            <strong>Пол:</strong> {{ this.patient.gender === 1 ? 'женский' : 'мужской' }}
         </div>
         <div class="patient-view__row">
             <strong>Учебная группа:</strong> {{ this.patient.groupNum }}
@@ -28,18 +29,25 @@
             <strong>Номер телефона:</strong> {{ this.patient.phoneNumber }}
         </div>
         <div class="patient-view__visits">
-            <div class="visits__header">
+            <h2 class="visits__header">
                 История посещений
-            </div>
-            <div><button>Добавить посещение</button></div>
+            </h2>
+            <div><button @click="goToVisitAdd">Добавить посещение</button></div>
+        </div>
+        <div class="visits-grid">
+            <visit-history-snippet v-for="(visit, index) in patient.visits" :visit="visit" :key="index"/>
         </div>
     </div>
 </template>
 
 <script>
     import {mapState} from 'vuex'
+    import VisitsHistorySnippet from "../../components/VisitsHistorySnippet"
 
     export default {
+        components: {
+            'visit-history-snippet': VisitsHistorySnippet
+        },
         created() {
             const id = this.$route.params.id
             this.$store.dispatch('getPatientById', id)
@@ -52,6 +60,9 @@
             goToPatientsList() {
                 this.$router.push('/patients')
             },
+            goToVisitAdd() {
+                this.$router.push('/visit-form')
+            },
             deletePatient(id) {
                 this.$store.dispatch('deletePatient', id)
                 .then(() => {this.$router.push('/patients')})
@@ -59,6 +70,19 @@
             updatePatient(id) {
                 this.$store.dispatch('getPatientToUpdate', id)
                     .then(() => {this.$router.push('/patient-form')})
+            },
+            convertDateFromJsToSql(date) {
+                var d = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+
+                if (month.length < 2)
+                    month = '0' + month;
+                if (day.length < 2)
+                    day = '0' + day;
+
+                return [day,month,year].join('.');
             }
         },
         computed: {
@@ -68,7 +92,7 @@
             }
         },
         beforeDestroy() {
-            this.$store.commit('SET_EMPTY_PATIENT')
+            // this.$store.commit('SET_EMPTY_PATIENT')
         }
     }
 </script>
@@ -95,6 +119,15 @@
             align-items: center;
             border-top: 1px solid #bebebe;
         }
+    }
+
+    .visits-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 20px;
+    }
+
+    .visits {
     }
 
 </style>

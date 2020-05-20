@@ -5,6 +5,8 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+require('moment/locale/ru')
+
 new Vue({
   router,
   store,

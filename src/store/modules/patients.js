@@ -21,7 +21,7 @@ export const mutations = {
     SET_PATIENT_TO_UPDATE(state, patient) {
         state.patientToUpdate = patient
     },
-    EMPTY_EMPTY_PATIENT_TO_UPDATE(state) {
+    EMPTY_PATIENT_TO_UPDATE(state) {
         state.patientToUpdate = null
     }
 }
@@ -37,7 +37,7 @@ export const actions = {
     async getPatientById({commit}, id) {
         try {
             const res = await apiService.getPatientById(id)
-            commit('SET_PATIENT_BY_ID', res.data[0])
+            commit('SET_PATIENT_BY_ID', res.data)
         } catch (e) {
             console.log(e)
         }
@@ -63,7 +63,7 @@ export const actions = {
     async getPatientToUpdate({commit}, id) {
         try {
             const res = await apiService.getPatientById(id)
-            commit('SET_PATIENT_TO_UPDATE', res.data[0])
+            commit('SET_PATIENT_TO_UPDATE', res.data)
         } catch (e) {
             console.log(e)
         }
@@ -72,7 +72,7 @@ export const actions = {
         try {
             const res = await apiService.updatePatient(patient)
             console.log(res)
-            commit('EMPTY_EMPTY_PATIENT_TO_UPDATE')
+            commit('EMPTY_PATIENT_TO_UPDATE')
         } catch (e) {
             console.log(e)
         }

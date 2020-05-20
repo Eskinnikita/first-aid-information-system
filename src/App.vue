@@ -44,6 +44,7 @@
     .form-container {
         margin: 0 auto;
         max-width: 500px;
+        text-align: center;
     }
 
     .input-block {
@@ -69,6 +70,14 @@
             margin-top: 5px;
             padding: 5px 10px;
             box-sizing: border-box;
+            border: 1px solid #bebebe;
+        }
+
+        textarea {
+            font-size: 15px;
+            resize: none;
+            padding: 5px 10px;
+            margin-top: 3px;
             border: 1px solid #bebebe;
         }
     }

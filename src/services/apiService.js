@@ -30,5 +30,21 @@ export default {
     },
     updatePatient(newPatient) {
         return apiClient.put('/patients', newPatient)
-    }
+    },
+    //visits
+    getVisits() {
+        return apiClient.get(`/visits`)
+    },
+    addVisit(visit) {
+        return apiClient.post('/visits', visit)
+    },
+    getVisitById(id) {
+        return apiClient.get(`/visits/${id}`)
+    },
+    updateVisit(newVisit) {
+        return apiClient.put('/visits', newVisit)
+    },
+    deleteVisit(id) {
+        return apiClient.delete(`/visits/${id}`)
+    },
 }

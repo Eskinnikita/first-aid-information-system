@@ -4,6 +4,7 @@ import apiService from "../services/apiService"
 import createPersistedState from "vuex-persistedstate";
 
 import * as patientsStore from "./modules/patients"
+import * as visitsStore from "./modules/visits"
 
 Vue.use(Vuex)
 
@@ -44,6 +45,7 @@ export default new Vuex.Store({
       }
   )],
   modules: {
-    patientsStore
+    patientsStore,
+    visitsStore
   }
 })

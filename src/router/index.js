@@ -5,6 +5,9 @@ import Home from '../views/Home'
 import Patients from "../views/Patients/Patients"
 import PatientView from "../views/Patients/PatientView"
 import PatientForm from "../views/Patients/PatientForm"
+import Visits from "../views/Visits/Visits"
+import VisitForm from "../views/Visits/VisitForm"
+import VisitView from "../views/Visits/VisitView"
 
 import store from '../store/index'
 
@@ -48,7 +51,7 @@ const routes = [
     },
     {
         path: '/patient-form',
-        name: 'PatientForm',
+        name: 'Patient-Form',
         component: PatientForm,
         beforeEnter: ifAuthenticated
     },
@@ -58,7 +61,27 @@ const routes = [
         props: true,
         component: PatientView,
         beforeEnter: ifAuthenticated
-    }
+    },
+    {
+        path: '/visits',
+        name: 'Visits',
+        component: Visits,
+        beforeEnter: ifAuthenticated
+    },
+    {
+        path: '/visit-form',
+        name: 'Visit-Form',
+        component: VisitForm,
+        beforeEnter: ifAuthenticated
+    },
+    {
+        path: '/visit-view/:id',
+        name: 'Visit-View',
+        props: true,
+        component: VisitView,
+        beforeEnter: ifAuthenticated
+    },
+
 ]
 
 const router = new VueRouter({

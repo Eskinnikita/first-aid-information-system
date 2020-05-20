@@ -9,6 +9,7 @@ const pool = require('./connection/pool')
 
 const patientsRoutes = require('./routes/patients')
 const loginRoutes = require('./routes/login')
+const visitsRoutes = require('./routes/visits')
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -24,8 +25,9 @@ app.use(async (req, res, next) => {
 
 app.use('/login', loginRoutes)
 app.use('/patients', patientsRoutes)
+app.use('/visits', visitsRoutes)
 
 
 app.listen(3000, function () {
-    console.log("Сервер ожидает подключения...");
+    console.log("Соединение установлено");
 });
