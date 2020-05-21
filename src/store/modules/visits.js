@@ -23,6 +23,10 @@ export const mutations = {
     },
     SET_BACK_STATUS(state, status) {
         state.backStatus = status
+    },
+    DELETE_NOTE(state, id) {
+        const noteIndex = state.visit.notes.findIndex(el => el.id === id)
+        state.visit.notes.splice(noteIndex, 1)
     }
 }
 export const actions = {
@@ -80,6 +84,16 @@ export const actions = {
         } catch (e) {
             commit('SET_TOAST', {message: e.message, status: 'error'})
         }
-    }
+    },
+    async deleteNote({commit}, id) {
+        try {
+            const res = await apiService.deleteNote(id)
+            console.log(res)
+            commit('DELETE_NOTE', id)
+            commit('SET_TOAST', {message: 'Направление успешно удалено!', status: 'success'})
+        } catch (e) {
+            commit('SET_TOAST', {message: e.message, status: 'error'})
+        }
+    },
 }
 export const getters = {}

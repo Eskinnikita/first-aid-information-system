@@ -5,6 +5,7 @@ import createPersistedState from "vuex-persistedstate";
 
 import * as patientsStore from "./modules/patients"
 import * as visitsStore from "./modules/visits"
+import * as notesStore from "./modules/notes"
 
 Vue.use(Vuex)
 
@@ -55,6 +56,7 @@ export default new Vuex.Store({
   )],
   modules: {
     patientsStore,
-    visitsStore
+    visitsStore,
+    notesStore
   }
 })

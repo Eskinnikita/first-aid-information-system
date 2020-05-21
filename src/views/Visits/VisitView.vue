@@ -28,16 +28,26 @@
         <div class="notes">
             <div class="notes__header">
                 <h2>Выданные направления</h2>
-                <button class="btn">Добавить направление</button>
+                <button class="btn" @click="addNote">Добавить направление</button>
             </div>
+            <template v-if="visit.notes.length">
+                <visit-note v-for="(note, index) in visit.notes" :key="index" :note="note"/>
+            </template>
+            <h3 v-else style="font-weight: normal">
+                Во время посещения пациенту не были выданы направления
+            </h3>
         </div>
     </div>
 </template>
 
 <script>
     import {mapState} from 'vuex'
+    import Note from "../../components/Note"
 
     export default {
+        components: {
+            'visit-note': Note
+        },
         created() {
             const id = this.$route.params.id
             this.$store.dispatch('getVisitById', id)
@@ -47,6 +57,9 @@
             }
         },
         methods: {
+            addNote() {
+                this.$router.push('/note-form')
+            },
             goBack() {
                 this.visitsStore.backStatus === 1
                     ? this.$router.push(`/patient-view/${this.visit.patientInfo.id}`)

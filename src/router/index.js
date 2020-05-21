@@ -9,6 +9,7 @@ import Visits from "../views/Visits/Visits"
 import VisitForm from "../views/Visits/VisitForm"
 import VisitView from "../views/Visits/VisitView"
 import Doctors from "../views/Doctors/Doctors"
+import NoteForm from "../views/Notes/NoteForm"
 
 import store from '../store/index'
 
@@ -86,6 +87,12 @@ const routes = [
         path: '/doctors',
         name: 'Doctors',
         component: Doctors,
+        beforeEnter: ifAuthenticated
+    },
+    {
+        path: '/note-form',
+        name: 'NoteForm',
+        component: NoteForm,
         beforeEnter: ifAuthenticated
     }
 
