@@ -28,7 +28,7 @@ export const mutations = {
 export const actions = {
     async getPatients({commit}) {
         try {
-            const res = await apiService.getPatients()
+            const res = await apiService.getAll('patients')
             commit('SET_PATIENTS', res.data)
         } catch (e) {
             commit('SET_TOAST', {message: e.message, status: 'error'})
@@ -36,7 +36,7 @@ export const actions = {
     },
     async getPatientById({commit}, id) {
         try {
-            const res = await apiService.getPatientById(id)
+            const res = await apiService.getById('patients', id)
             commit('SET_PATIENT_BY_ID', res.data)
         } catch (e) {
             commit('SET_TOAST', {message: e.message, status: 'error'})
@@ -44,7 +44,7 @@ export const actions = {
     },
     async addPatient({commit}, patient) {
         try {
-            const res = await apiService.addPatient(patient)
+            const res = await apiService.post('patients', patient)
             console.log(res)
             commit('ADD_PATIENT', patient)
             commit('SET_TOAST', {message: 'Пациент успешно добавлен!', status: 'success'})
@@ -54,7 +54,7 @@ export const actions = {
     },
     async deletePatient({commit}, id) {
         try {
-            const res = await apiService.deletePatient(id)
+            const res = await apiService.delete('patients', id)
             console.log(res)
             commit('SET_TOAST', {message: 'Пациент успешно удален!', status: 'success'})
         } catch (e) {
@@ -63,7 +63,7 @@ export const actions = {
     },
     async getPatientToUpdate({commit}, id) {
         try {
-            const res = await apiService.getPatientById(id)
+            const res = await apiService.getById('patients', id)
             commit('SET_PATIENT_TO_UPDATE', res.data)
         } catch (e) {
             commit('SET_TOAST', {message: e.message, status: 'error'})
@@ -71,7 +71,7 @@ export const actions = {
     },
     async updatePatient({commit}, patient) {
         try {
-            await apiService.updatePatient(patient)
+            await apiService.update('patients', patient)
             commit('SET_TOAST', {message: 'Пациент успешно обновлен!', status: 'success'})
         } catch (e) {
             commit('SET_TOAST', {message: e.message, status: 'error'})

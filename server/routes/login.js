@@ -14,6 +14,7 @@ router.post('/', (req, res) => {
             if (err) {
                 res.status(500).send({message: 'Ошибка авторизации', status: 'error'})
             } else {
+                console.log(results)
                 res.status(200).send(results)
             }
         });

@@ -9,7 +9,7 @@ export const mutations = {
 export const actions = {
     async addNote({commit}, note) {
         try {
-            const res = await apiService.addNote(note)
+            const res = await apiService.add('notes', note)
             console.log(res)
             commit('SET_TOAST', {message: 'Направление успешно добавлено!', status: 'success'})
         } catch (e) {

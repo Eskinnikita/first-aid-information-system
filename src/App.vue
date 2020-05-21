@@ -13,6 +13,8 @@
         components: {
             'header-comp': Header
         },
+        created() {
+        },
         computed: {
             hiddenHeader() {
                 return this.$route.name !== 'Login'
@@ -31,6 +33,11 @@
         margin: 0 auto;
     }
 
+    .page-title {
+        text-align: left;
+        margin: 0;
+    }
+
     a {
         color: #000;
         text-decoration: none;
@@ -45,6 +52,13 @@
         margin: 0 auto;
         max-width: 500px;
         text-align: center;
+    }
+
+    .loading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 17%;
     }
 
     .input-block {

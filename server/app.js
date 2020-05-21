@@ -10,7 +10,9 @@ const pool = require('./connection/pool')
 const patientsRoutes = require('./routes/patients')
 const loginRoutes = require('./routes/login')
 const visitsRoutes = require('./routes/visits')
-const notesRouters = require('./routes/notes')
+const notesRoutes = require('./routes/notes')
+const doctorsRoutes = require('./routes/doctors')
+const medicalsRoutes = require('./routes/medical')
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -27,7 +29,9 @@ app.use(async (req, res, next) => {
 app.use('/login', loginRoutes)
 app.use('/patients', patientsRoutes)
 app.use('/visits', visitsRoutes)
-app.use('/notes', notesRouters)
+app.use('/notes', notesRoutes)
+app.use('/doctors', doctorsRoutes)
+app.use('/medical', medicalsRoutes)
 
 app.listen(3000, function () {
     console.log("Соединение установлено");

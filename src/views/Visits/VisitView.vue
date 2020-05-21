@@ -15,7 +15,7 @@
             {{visit.patientInfo.middleName}} из группы {{visit.patientInfo.groupNum}}
         </div>
         <div class="visit-view__row">
-            <strong>Дата и время посещения:</strong> {{visit.visitDate}}
+            <strong>Дата и время посещения:</strong> {{convertDateFromJsToSql(visit.visitDate)}}
         </div>
         <div class="visit-view__row">
             <strong>Жалоба:</strong>
@@ -61,9 +61,13 @@
                 this.$router.push('/note-form')
             },
             goBack() {
-                this.visitsStore.backStatus === 1
-                    ? this.$router.push(`/patient-view/${this.visit.patientInfo.id}`)
-                    : this.$router.push(`/visits`)
+                console.log(this.visit)
+                if(this.visitsStore.backStatus === 1) {
+                    this.$router.push(`/patient-view/${this.visit.patientId}`)
+                }
+                else if(this.visitsStore.backStatus === 2) {
+                    this.$router.push(`/visits`)
+                }
             },
             updateVisit(id) {
                 this.$store.dispatch('getVisitToUpdate', id)
@@ -74,10 +78,26 @@
             deleteVisit(id) {
                 this.$store.dispatch('deleteVisit', id)
                     .then(() => {
-                        this.visitsStore.backStatus === 1
-                            ? this.$router.push(`/patient-view/${this.visit.patientInfo.id}`)
-                            : this.$router.push(`/visits`)
+                        if(this.visitsStore.backStatus === 1) {
+                            this.$router.push(`/patient-view/${this.visit.patientId}`)
+                        }
+                        else if(this.visitsStore.backStatus === 2) {
+                            this.$router.push(`/visits`)
+                        }
                     })
+            },
+            convertDateFromJsToSql(date) {
+                var d = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+
+                if (month.length < 2)
+                    month = '0' + month;
+                if (day.length < 2)
+                    day = '0' + day;
+
+                return [day,month,year].join('.');
             }
         },
         computed: {
@@ -85,6 +105,9 @@
             visit() {
                 return this.visitsStore.visit
             }
+        },
+        beforeDestroy() {
+            // this.$store.commit('SET_BACK_STATUS', 3)
         }
     }
 </script>

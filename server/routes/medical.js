@@ -3,7 +3,7 @@ const router = express.Router()
 const pool = require('../connection/pool')
 
 router.get('/', (req, res) => {
-    pool.query(`SELECT * FROM doctors`,
+    pool.query(`SELECT * FROM medicalSupplies`,
         function (err, results) {
             if (err) {
                 res.status(500).send({message: 'Ошибка', status: 'error'})
@@ -14,14 +14,11 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    pool.query(`INSERT INTO doctors (firstName,lastName,middleName, password, phoneNumber, isAdmin)
+    pool.query(`INSERT INTO medicalSupplies (name,quantity,availableQuantity)
     VALUES (
-    '${req.body.firstName}', 
-    '${req.body.lastName}', 
-    '${req.body.middleName}', 
-    '${req.body.password}', 
-    '${req.body.phoneNumber}',
-     ${req.body.isAdmin})
+    '${req.body.name}', 
+    ${req.body.quantity},
+    ${req.body.availableQuantity})
     `,
         function (err, results) {
             if (err) {
@@ -34,7 +31,7 @@ router.post('/', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     const id = req.params.id
-    pool.query(`DELETE FROM doctors WHERE id=${id}`,
+    pool.query(`DELETE FROM medicalSupplies WHERE id=${id}`,
         function (err, results) {
             if (err) {
                 res.status(500).send({message: 'Ошибка удаления', status: 'error'})
@@ -43,10 +40,10 @@ router.delete('/:id', (req, res) => {
             }
         });
 })
-
+//
 router.get('/:id', (req, res) => {
     const id = req.params.id
-    pool.query(`SELECT * FROM doctors WHERE id=${id}`,
+    pool.query(`SELECT * FROM medicalSupplies WHERE id=${id}`,
         function (err, results) {
             if (err) {
                 res.status(500).send({message: 'Ошибка удаления', status: 'error'})
@@ -55,16 +52,13 @@ router.get('/:id', (req, res) => {
             }
         });
 })
-
+//
 router.put('/', (req, res) => {
-    pool.query(`UPDATE doctors SET
-    firstName='${req.body.firstName}', 
-    lastName='${req.body.lastName}', 
-    middleName='${req.body.middleName}', 
-    password='${req.body.password}', 
-    phoneNumber='${req.body.phoneNumber}', 
-    isAdmin=${req.body.isAdmin}
-    WHERE id=${req.body.id}
+    console.log(req.body)
+    pool.query(`UPDATE medicalSupplies SET
+    name='${req.body.name}',
+    quantity=${req.body.quantity},
+    availableQuantity=${req.body.availableQuantity}
     `,
         function (err, results) {
             if (err) {

@@ -34,7 +34,7 @@
         justify-content: space-between;
         align-items: center;
         box-sizing: border-box;
-
+        margin-bottom: 20px;
         &__target {
             width: 80%;
         }

@@ -12,49 +12,19 @@ const apiClient = axios.create({
 })
 
 export default {
-    login(user) {
-        return apiClient.post(`/login`, user)
+    getAll(route) {
+        return apiClient.get(`/${route}`)
     },
-    //patients
-    getPatients() {
-        return apiClient.get(`/patients`)
+    getById(route, id) {
+        return apiClient.get(`/${route}/${id}`)
     },
-    getPatientById(id) {
-        return apiClient.get(`/patients/${id}`)
+    delete(route, id) {
+        return apiClient.delete(`/${route}/${id}`)
     },
-    addPatient(patient) {
-        return apiClient.post('/patients', patient)
+    update(route, data) {
+        return apiClient.put(`/${route}`, data)
     },
-    deletePatient(id) {
-        return apiClient.delete(`/patients/${id}`)
-    },
-    updatePatient(newPatient) {
-        return apiClient.put('/patients', newPatient)
-    },
-    //visits
-    getVisits() {
-        return apiClient.get(`/visits`)
-    },
-    addVisit(visit) {
-        return apiClient.post('/visits', visit)
-    },
-    getVisitById(id) {
-        return apiClient.get(`/visits/${id}`)
-    },
-    updateVisit(newVisit) {
-        return apiClient.put('/visits', newVisit)
-    },
-    deleteVisit(id) {
-        return apiClient.delete(`/visits/${id}`)
-    },
-    //notes
-    getNotesByVisitId(visitId) {
-        return apiClient.get(`/notes/${visitId}`)
-    },
-    deleteNote(id) {
-        return apiClient.delete(`/notes/${id}`)
-    },
-    addNote(note) {
-        return apiClient.post('/notes', note)
+    post(route, data) {
+        return apiClient.post(`/${route}`, data)
     }
 }

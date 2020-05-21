@@ -10,6 +10,9 @@ import VisitForm from "../views/Visits/VisitForm"
 import VisitView from "../views/Visits/VisitView"
 import Doctors from "../views/Doctors/Doctors"
 import NoteForm from "../views/Notes/NoteForm"
+import DoctorForm from "../views/Doctors/DoctorForm"
+import Medical from "../views/Medical/Medical"
+import MedicalForm from "../views/Medical/MedicalForm"
 
 import store from '../store/index'
 
@@ -90,9 +93,27 @@ const routes = [
         beforeEnter: ifAuthenticated
     },
     {
+        path: '/doctor-form',
+        name: 'DoctorForm',
+        component: DoctorForm,
+        beforeEnter: ifAuthenticated
+    },
+    {
         path: '/note-form',
         name: 'NoteForm',
         component: NoteForm,
+        beforeEnter: ifAuthenticated
+    },
+    {
+        path: '/medical-supplies',
+        name: 'MedicalSupplies',
+        component: Medical,
+        beforeEnter: ifAuthenticated
+    },
+    {
+        path: '/medical-form',
+        name: 'MedicalForm',
+        component: MedicalForm,
         beforeEnter: ifAuthenticated
     }
 

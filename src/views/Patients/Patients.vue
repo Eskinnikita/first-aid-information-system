@@ -1,5 +1,6 @@
 <template>
     <div class="thin-container">
+        <h1 class="page-title">Пациенты</h1>
         <div class="thin-container__controls">
             <button class="btn" @click="goToPatientAdd">Добавить пациента</button>
             <div class="input-block">

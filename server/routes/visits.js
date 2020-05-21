@@ -3,7 +3,7 @@ const router = express.Router()
 const pool = require('../connection/pool')
 
 router.get('/', (req, res) => {
-    pool.query(`SELECT * FROM visits`,
+    pool.query(`SELECT * FROM visits ORDER BY visitDate DESC`,
         function (err, results) {
             if (err) {
                 res.status(500).send({message: 'Ошибка', status: 'error'})

@@ -1,5 +1,6 @@
 <template>
     <div class="thin-container">
+        <h1 style="margin-bottom: 20px" class="page-title">Посещения</h1>
         <div class="thin-container__controls">
         </div>
         <visit-snippet v-for="(visit, index) in visitsStore.visits" :key="index" :visit="visit"/>

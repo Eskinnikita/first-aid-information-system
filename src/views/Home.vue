@@ -13,19 +13,23 @@
                 controlButtons: [
                     {
                         content: 'Пациенты',
-                        uri: '/patients'
+                        uri: '/patients',
+                        adminRequired: false
                     },
                     {
                         content: 'Посещения',
-                        uri: '/visits'
+                        uri: '/visits',
+                        adminRequired: false
                     },
                     {
                         content: 'Медикаменты',
-                        uri: ''
+                        uri: '/medical-supplies',
+                        adminRequired: false
                     },
                     {
                         content: 'Врачи',
-                        uri: '/doctors'
+                        uri: '/doctors',
+                        adminRequired: true
                     }
                 ]
             }
