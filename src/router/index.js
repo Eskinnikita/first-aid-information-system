@@ -8,6 +8,7 @@ import PatientForm from "../views/Patients/PatientForm"
 import Visits from "../views/Visits/Visits"
 import VisitForm from "../views/Visits/VisitForm"
 import VisitView from "../views/Visits/VisitView"
+import Doctors from "../views/Doctors/Doctors"
 
 import store from '../store/index'
 
@@ -81,6 +82,12 @@ const routes = [
         component: VisitView,
         beforeEnter: ifAuthenticated
     },
+    {
+        path: '/doctors',
+        name: 'Doctors',
+        component: Doctors,
+        beforeEnter: ifAuthenticated
+    }
 
 ]
 

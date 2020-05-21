@@ -1,7 +1,7 @@
 <template>
     <div class="thin-container">
         <div class="thin-container__controls">
-            <button @click="goToPatientAdd">Добавить пациента</button>
+            <button class="btn" @click="goToPatientAdd">Добавить пациента</button>
             <div class="input-block">
                 <input type="text" placeholder="Поиск по ФИО" v-model="search">
             </div>

@@ -1,12 +1,17 @@
 <template>
     <div class="visit-snippet">
-
+        <h2>{{visit.title}}</h2>
     </div>
 </template>
 
 <script>
     export default {
-
+        props: {
+            visit: {
+                type: Object,
+                required: true
+            }
+        }
     }
 </script>
 

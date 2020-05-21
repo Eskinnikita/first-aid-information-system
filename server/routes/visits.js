@@ -32,25 +32,32 @@ router.post('/', (req, res) => {
         });
 })
 
-router.get('/:id', (req, res) => {
-    const id = req.params.id
-    pool.query(`SELECT * FROM visits WHERE id=${id}`,
-        function (err, results) {
-            if (err) {
-                res.status(500).send({message: 'Ошибка', status: 'error'})
-            } else {
-                const visit = results[0]
-                pool.query(`SELECT * FROM patients WHERE id=${visit.patientId}`,
-                    function (err, patient) {
-                        if (err) {
-                            res.status(500).send({message: 'Ошибка', status: 'error'})
-                        } else {
-                            visit.patientInfo = patient[0]
-                            res.status(200).send(visit)
-                        }
-                    });
-            }
-        });
+const poolQuery = (query) => {
+      return new Promise((resolve, reject) => {
+          pool.query(query,
+              function (err, results) {
+                  if (err) {
+                      reject(err)
+                  } else {
+                      resolve(results)
+                  }
+              });
+      })
+}
+
+router.get('/:id',  async (req, res) => {
+    try {
+        const id = req.params.id
+        const visitData = await poolQuery(`SELECT * FROM visits WHERE id=${id}`)
+        const patientInfo = await poolQuery(`SELECT firstName,lastName,middleName,groupNum FROM patients WHERE id=${visitData[0].patientId}`)
+        const notesInfo = await poolQuery(`SELECT * FROM notes WHERE visitId=${visitData[0].id}`)
+        visitData[0].patientInfo = patientInfo[0]
+        visitData[0].notes = notesInfo
+        res.status(200).send(visitData[0])
+    }
+    catch(e) {
+       res.status(500).send({message: 'Ошибка', status:'error'})
+    }
 })
 
 router.put('/', (req, res) => {

@@ -31,7 +31,7 @@ export const actions = {
             const res = await apiService.getPatients()
             commit('SET_PATIENTS', res.data)
         } catch (e) {
-            console.log(e)
+            commit('SET_TOAST', {message: e.message, status: 'error'})
         }
     },
     async getPatientById({commit}, id) {
@@ -39,7 +39,7 @@ export const actions = {
             const res = await apiService.getPatientById(id)
             commit('SET_PATIENT_BY_ID', res.data)
         } catch (e) {
-            console.log(e)
+            commit('SET_TOAST', {message: e.message, status: 'error'})
         }
     },
     async addPatient({commit}, patient) {
@@ -47,17 +47,18 @@ export const actions = {
             const res = await apiService.addPatient(patient)
             console.log(res)
             commit('ADD_PATIENT', patient)
+            commit('SET_TOAST', {message: 'Пациент успешно добавлен!', status: 'success'})
         } catch (e) {
-            console.log(e)
+            commit('SET_TOAST', {message: e.message, status: 'error'})
         }
     },
     async deletePatient({commit}, id) {
         try {
             const res = await apiService.deletePatient(id)
             console.log(res)
-            commit('SET_EMPTY_PATIENT')
+            commit('SET_TOAST', {message: 'Пациент успешно удален!', status: 'success'})
         } catch (e) {
-            console.log(e)
+            commit('SET_TOAST', {message: e.message, status: 'error'})
         }
     },
     async getPatientToUpdate({commit}, id) {
@@ -65,16 +66,15 @@ export const actions = {
             const res = await apiService.getPatientById(id)
             commit('SET_PATIENT_TO_UPDATE', res.data)
         } catch (e) {
-            console.log(e)
+            commit('SET_TOAST', {message: e.message, status: 'error'})
         }
     },
     async updatePatient({commit}, patient) {
         try {
-            const res = await apiService.updatePatient(patient)
-            console.log(res)
-            commit('EMPTY_PATIENT_TO_UPDATE')
+            await apiService.updatePatient(patient)
+            commit('SET_TOAST', {message: 'Пациент успешно обновлен!', status: 'success'})
         } catch (e) {
-            console.log(e)
+            commit('SET_TOAST', {message: e.message, status: 'error'})
         }
     }
 }

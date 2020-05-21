@@ -1,6 +1,6 @@
 <template>
     <div class="control-panel">
-        <button v-for="(button, index) in controlButtons" :key="index" @click="routeTo(button.uri)">
+        <button class="btn" v-for="(button, index) in controlButtons" :key="index" @click="routeTo(button.uri)">
             {{ button.content }}
         </button>
     </div>
@@ -25,7 +25,7 @@
                     },
                     {
                         content: 'Врачи',
-                        uri: ''
+                        uri: '/doctors'
                     }
                 ]
             }

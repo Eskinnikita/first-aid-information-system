@@ -2,7 +2,7 @@
     <div class="visit-history-snippet">
         <div class="visit-history-snippet__header">
             <h3 class="visit-history-snippet__title">{{visit.title}}</h3>
-            <button @click="goToVisitDetails">Подробнее</button>
+            <button class="btn btn__empty" @click="goToVisitDetails">Подробнее</button>
         </div>
         <div class="visit-history-snippet__text">
             <p>{{shortComplaint}}</p>
@@ -49,7 +49,7 @@
 <style lang="scss" scoped>
     .visit-history-snippet {
         border: 1px solid #bebebe;
-        padding: 10px 15px;
+        padding: 10px 15px  20px;
 
         &__header {
             display: flex;

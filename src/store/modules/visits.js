@@ -12,6 +12,9 @@ export const mutations = {
     SET_VISIT(state, visit) {
         state.visit = visit
     },
+    SET_VISITS(state, visits) {
+        state.visits = visits
+    },
     SET_VISIT_TO_UPDATE(state, visit) {
         state.visitToUpdate = visit
     },
@@ -23,13 +26,23 @@ export const mutations = {
     }
 }
 export const actions = {
+    async getVisits({commit}) {
+        try {
+            const res = await apiService.getVisits()
+            console.log(res)
+            commit('SET_VISITS', res.data)
+        }
+        catch(e) {
+            commit('SET_TOAST', {message: e.message, status: 'error'})
+        }
+    },
     async addVisit({commit}, visit) {
         try {
             const res = await apiService.addVisit(visit)
             console.log(res)
-            commit('SET_STATUS')
+            commit('SET_TOAST', {message: 'Посещение успешно добавлено!', status: 'success'})
         } catch (e) {
-            console.log(e)
+            commit('SET_TOAST', {message: e.message, status: 'error'})
         }
     },
     async getVisitById({commit}, id) {
@@ -38,7 +51,7 @@ export const actions = {
             console.log(res.data)
             commit('SET_VISIT', res.data)
         } catch (e) {
-            console.log(e)
+            commit('SET_TOAST', {message: e.message, status: 'error'})
         }
     },
     async getVisitToUpdate({commit}, id) {
@@ -46,7 +59,7 @@ export const actions = {
             const res = await apiService.getVisitById(id)
             commit('SET_VISIT_TO_UPDATE', res.data)
         } catch (e) {
-            console.log(e)
+            commit('SET_TOAST', {message: e.message, status: 'error'})
         }
     },
     async updateVisit({commit}, visit) {
@@ -54,17 +67,18 @@ export const actions = {
             const res = await apiService.updateVisit(visit)
             console.log(res)
             commit('SET_STATUS')
+            commit('SET_TOAST', {message: 'Посещение успешно обновлено!', status: 'success'})
         } catch (e) {
-            console.log(e)
+            commit('SET_TOAST', {message: e.message, status: 'error'})
         }
     },
     async deleteVisit({commit}, id) {
         try {
             const res = await apiService.deleteVisit(id)
             console.log(res)
-            commit('SET_STATUS')
+            commit('SET_TOAST', {message: 'Посещение успешно удалено!', status: 'success'})
         } catch (e) {
-            console.log(e)
+            commit('SET_TOAST', {message: e.message, status: 'error'})
         }
     }
 }

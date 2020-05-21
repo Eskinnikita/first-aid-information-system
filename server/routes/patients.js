@@ -2,6 +2,19 @@ const express = require('express')
 const router = express.Router()
 const pool = require('../connection/pool')
 
+const poolQuery = (query) => {
+    return new Promise((resolve, reject) => {
+        pool.query(query,
+            function (err, results) {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(results)
+                }
+            });
+    })
+}
+
 router.get('/', (req, res) => {
     pool.query(`SELECT * FROM patients`,
         function (err, results) {
@@ -13,36 +26,17 @@ router.get('/', (req, res) => {
         });
 })
 
-// router.get('/:id', (req, res) => {
-//     const id = req.params.id
-//     pool.query(`SELECT * FROM patients WHERE id=${id}`,
-//         function (err, results) {
-//             if (err) {
-//                 res.status(500).send({message: 'Ошибка', status: 'error'})
-//             } else {
-//                 res.status(200).send(results)
-//             }
-//         });
-// })
-router.get('/:id', (req, res) => {
-    const id = req.params.id
-    pool.query(`SELECT * FROM patients WHERE id=${id}`,
-        function (err, results) {
-            if (err) {
-                res.status(500).send({message: 'Ошибка', status: 'error'})
-            } else {
-                const patient = results[0]
-                pool.query(`SELECT * FROM visits WHERE patientId=${id}`,
-                    function (err, visits) {
-                        if (err) {
-                            res.status(500).send({message: 'Ошибка', status: 'error'})
-                        } else {
-                            patient.visits = visits
-                            res.status(200).send(patient)
-                        }
-                    });
-            }
-        });
+router.get('/:id', async (req, res) => {
+    try {
+        const id = req.params.id
+        const patient = await poolQuery(`SELECT * FROM patients WHERE id=${id}`)
+        patient[0].visits = await poolQuery(`SELECT * FROM visits WHERE patientId=${id}`)
+        res.status(200).send(patient[0])
+    }
+    catch(e) {
+        res.status(500).send({message: 'Ошибка', status:'error'})
+    }
+
 })
 
 router.post('/', (req, res) => {

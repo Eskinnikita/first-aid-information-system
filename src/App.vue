@@ -82,7 +82,7 @@
         }
     }
 
-    button {
+    .btn {
         margin: 10px;
         background-color: #3b464d;
         color: #fff;
@@ -93,6 +93,14 @@
         cursor: pointer;
         transition: 0.3s;
 
+        &__empty {
+            background: none;
+            border: 1px solid #3b464d;
+            color: #3b464d;
+            font-weight: bold;
+            box-sizing: border-box;
+        }
+
         &:hover {
             opacity: 0.7;
         }
@@ -101,6 +109,10 @@
     .required-sign {
         color: red;
         padding-left: 3px;
+    }
+
+    .toast-text {
+        font-family: sans-serif;
     }
 
 </style>

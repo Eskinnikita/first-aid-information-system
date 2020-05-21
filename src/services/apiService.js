@@ -47,4 +47,14 @@ export default {
     deleteVisit(id) {
         return apiClient.delete(`/visits/${id}`)
     },
+    //notes
+    getNotesByVisitId(visitId) {
+        return apiClient.get(`/notes/${visitId}`)
+    },
+    deleteNote(id) {
+        return apiClient.delete(`/notes/${id}`)
+    },
+    addNote(note) {
+        return apiClient.post('/notes', note)
+    }
 }

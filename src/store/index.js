@@ -18,6 +18,14 @@ export default new Vuex.Store({
     },
     SET_EMPTY_USER(state) {
       state.user = null
+    },
+    SET_TOAST(state, toastInfo) {
+      this._vm.$toast.open(
+          {
+            message: toastInfo.message,
+            status: toastInfo.status
+          }
+      );
     }
   },
   actions: {
@@ -38,6 +46,7 @@ export default new Vuex.Store({
   },
   getters: {
     isAuthenticated: state => !!state.user,
+    isAdmin: state => state.user.isAdmin
   },
   plugins: [createPersistedState(
       {

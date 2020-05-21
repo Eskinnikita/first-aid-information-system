@@ -15,7 +15,7 @@
                 </label>
                 <input v-model="user.password" autocomplete="on" type="password" id="password">
             </div>
-            <button @click.prevent="login">Войти</button>
+            <button @click.prevent="login" class="btn">Войти</button>
         </form>
     </div>
 </template>

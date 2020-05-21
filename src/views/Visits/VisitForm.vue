@@ -17,8 +17,8 @@
             <label for="5">Предположительный диагноз</label>
             <textarea v-model="visit.diagnosis" style="height: 200px" type="text" id="5"></textarea>
         </div>
-        <button style="width: 150px" v-if="!visitsStore.visitToUpdate" @click="addVisit">Добавить</button>
-        <button style="width: 200px" @click="updateVisit" v-else >Сохранить изменения</button>
+        <button class="btn" style="width: 150px" v-if="!visitsStore.visitToUpdate" @click="addVisit">Добавить</button>
+        <button class="btn" style="width: 200px" @click="updateVisit" v-else >Сохранить изменения</button>
     </div>
 </template>
 

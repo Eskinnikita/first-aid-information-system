@@ -1,1 +1,1 @@
-module.exports = { devServer: { proxy: "http://localhost:3000" } }
+module.exports = { devServer: { port:8081, proxy: "http://localhost:3000" } }

@@ -2,11 +2,11 @@
     <div class="visit-view">
         <div class="visit-view__controls">
             <div class="controls__back">
-                <button @click="goBack">Назад</button>
+                <button class="btn" @click="goBack">Назад</button>
             </div>
             <div class="controls__patient-control">
-                <button @click="updateVisit(visit.id)">Изменить</button>
-                <button @click="deleteVisit(visit.id)">Удалить</button>
+                <button class="btn" @click="updateVisit(visit.id)">Изменить</button>
+                <button class="btn" @click="deleteVisit(visit.id)">Удалить</button>
             </div>
         </div>
         <h2>Информация о посещении</h2>
@@ -24,6 +24,12 @@
         <div class="visit-view__row">
             <strong>Диагноз:</strong>
             <p>{{visit.diagnosis}}</p>
+        </div>
+        <div class="notes">
+            <div class="notes__header">
+                <h2>Выданные направления</h2>
+                <button class="btn">Добавить направление</button>
+            </div>
         </div>
     </div>
 </template>
@@ -55,7 +61,9 @@
             deleteVisit(id) {
                 this.$store.dispatch('deleteVisit', id)
                     .then(() => {
-                        this.$router.push('/visits')
+                        this.visitsStore.backStatus === 1
+                            ? this.$router.push(`/patient-view/${this.visit.patientInfo.id}`)
+                            : this.$router.push(`/visits`)
                     })
             }
         },
@@ -86,6 +94,15 @@
                 margin: 10px 0 0 0;
                 padding: 0;
             }
+        }
+    }
+
+    .notes {
+        border-top: 1px solid #bebebe;
+        &__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
     }
 </style>

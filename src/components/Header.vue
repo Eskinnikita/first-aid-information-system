@@ -6,7 +6,7 @@
                 <div class="header__name" v-if="user">
                     {{user.lastName}} {{spliceName(user.firstName)}} {{spliceName(user.middleName)}}
                 </div>
-                <button @click="logout">Выйти</button>
+                <button class="btn btn__empty" style="padding: 5px" @click="logout">Выйти</button>
             </div>
         </div>
     </div>

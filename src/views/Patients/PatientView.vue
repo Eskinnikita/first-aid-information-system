@@ -2,11 +2,11 @@
     <div class="patient-view" v-if="this.patient">
         <div class="patient-view__controls">
             <div class="controls__back">
-                <button @click="goToPatientsList">Назад</button>
+                <button class="btn" @click="goToPatientsList">Назад</button>
             </div>
             <div class="controls__patient-control">
-                <button @click="updatePatient(patient.id)">Изменить</button>
-                <button @click="deletePatient(patient.id)">Удалить</button>
+                <button class="btn" @click="updatePatient(patient.id)">Изменить</button>
+                <button class="btn" @click="deletePatient(patient.id)">Удалить</button>
             </div>
         </div>
         <h2>Информация о пациенте</h2>
@@ -32,10 +32,13 @@
             <h2 class="visits__header">
                 История посещений
             </h2>
-            <div><button @click="goToVisitAdd">Добавить посещение</button></div>
+            <div><button class="btn" @click="goToVisitAdd">Добавить посещение</button></div>
         </div>
         <div class="visits-grid">
-            <visit-history-snippet v-for="(visit, index) in patient.visits" :visit="visit" :key="index"/>
+            <template v-if="patient.visits.length">
+                <visit-history-snippet v-for="(visit, index) in patient.visits" :visit="visit" :key="index"/>
+            </template>
+            <h3 style="font-weight: normal" v-else>Пациент ни разу не посещал медпункт</h3>
         </div>
     </div>
 </template>

@@ -13,7 +13,7 @@
                 Номер полиса: {{patient.medicalPolicy}}
             </div>
             <div class="additional-info__policy">
-                <button @click="goToPatientInfo(patient.id)">Перейти</button>
+                <button class="btn btn__empty" @click="goToPatientInfo(patient.id)">Перейти</button>
             </div>
         </div>
     </div>

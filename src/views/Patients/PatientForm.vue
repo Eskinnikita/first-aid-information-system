@@ -36,8 +36,8 @@
             <label for="phoneNumber">Номер телефона</label>
             <input v-model="patient.phoneNumber" type="text" id="phoneNumber">
         </div>
-        <button style="width: 150px" v-if="!this.patientsStore.patientToUpdate" @click="addPatient">Добавить</button>
-        <button style="width: 200px" v-else @click="updatePatient">Сохранить изменения</button>
+        <button class="btn" style="width: 150px" v-if="!this.patientsStore.patientToUpdate" @click="addPatient">Добавить</button>
+        <button class="btn" style="width: 200px" v-else @click="updatePatient">Сохранить изменения</button>
     </div>
 </template>
 
@@ -77,6 +77,7 @@
         methods: {
             addPatient() {
                 this.$store.dispatch('addPatient', this.patient)
+                .then(() => {this.$router.push(`/patients`)})
             },
             updatePatient() {
                 this.$store.dispatch('updatePatient', this.patient).then(() => {
