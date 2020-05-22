@@ -1,21 +1,28 @@
 <template>
     <div id="app">
         <header-comp v-if="hiddenHeader"/>
-        <div class="wrapper">
+        <div class="loading" v-show="loadingStatus">
+            <clip-loader/>
+        </div>
+        <div class="wrapper" v-show="!loadingStatus">
             <router-view/>
         </div>
     </div>
 </template>
 
 <script>
+    import {mapState} from 'vuex'
     import Header from "./components/Header"
+    import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
     export default {
         components: {
-            'header-comp': Header
+            'header-comp': Header,
+            'clip-loader': ClipLoader
         },
         created() {
         },
         computed: {
+            ...mapState(['loadingStatus']),
             hiddenHeader() {
                 return this.$route.name !== 'Login'
             }
@@ -26,6 +33,7 @@
 <style lang="scss">
     #app {
         font-family: sans-serif;
+        padding-bottom: 40px;
     }
 
     .wrapper {
@@ -36,6 +44,10 @@
     .page-title {
         text-align: left;
         margin: 0;
+    }
+
+    .invalid-input {
+        border: 1px solid red !important;
     }
 
     a {
@@ -66,6 +78,12 @@
         display: flex;
         flex-direction: column;
         margin-bottom: 20px;
+
+        &__error {
+            color: red;
+            margin-top: 5px;
+            font-size: 13px;
+        }
 
         label {
 

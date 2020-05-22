@@ -29,6 +29,7 @@
         },
         methods: {
             goToPatientInfo(id) {
+                this.$store.commit('SET_EMPTY_PATIENT')
                 this.$router.push(`/patient-view/${id}`)
             }
         }

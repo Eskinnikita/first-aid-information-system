@@ -22,6 +22,7 @@
         },
         methods: {
             goToVisitDetails() {
+                this.$store.commit('SET_EMPTY_VISIT')
                 this.$store.commit('SET_BACK_STATUS', 2)
                 this.$router.push(`/visit-view/${this.visit.id}`)
             },

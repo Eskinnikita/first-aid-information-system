@@ -1,5 +1,5 @@
 <template>
-    <div class="visit-view">
+    <div class="visit-view" v-if="visit">
         <div class="visit-view__controls">
             <div class="controls__back">
                 <button class="btn" @click="goBack">Назад</button>
@@ -11,17 +11,20 @@
         </div>
         <h2>Информация о посещении</h2>
         <div class="visit-view__row">
+            <strong>Причина обращения:</strong> {{visit.title}}
+        </div>
+        <div class="visit-view__row">
             <strong>Пациент:</strong> {{visit.patientInfo.lastName}} {{visit.patientInfo.firstName}}
             {{visit.patientInfo.middleName}} из группы {{visit.patientInfo.groupNum}}
         </div>
         <div class="visit-view__row">
             <strong>Дата и время посещения:</strong> {{convertDateFromJsToSql(visit.visitDate)}}
         </div>
-        <div class="visit-view__row">
+        <div class="visit-view__row" v-if="visit.complaint">
             <strong>Жалоба:</strong>
             <p>{{visit.complaint}}</p>
         </div>
-        <div class="visit-view__row">
+        <div class="visit-view__row" v-if="visit.diagnosis">
             <strong>Диагноз:</strong>
             <p>{{visit.diagnosis}}</p>
         </div>

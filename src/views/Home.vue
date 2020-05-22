@@ -1,43 +1,39 @@
 <template>
     <div class="control-panel">
-        <button class="btn" v-for="(button, index) in controlButtons" :key="index" @click="routeTo(button.uri)">
-            {{ button.content }}
+        <button class="btn" @click="getData('getPatients', '/patients')">
+            Пациенты
         </button>
+        <button class="btn" @click="getData('getVisits', '/visits')">
+            Посещения
+        </button>
+        <button class="btn" @click="getData('getMedicals', '/medical-supplies')">
+            Медикаменты
+        </button>
+        <button v-if="user && user.isAdmin" class="btn" @click="getData('getDoctors', '/doctors')">
+            Врачи
+        </button>
+
     </div>
 </template>
 
 <script>
+    import {mapState} from 'vuex'
     export default {
         data() {
             return {
-                controlButtons: [
-                    {
-                        content: 'Пациенты',
-                        uri: '/patients',
-                        adminRequired: false
-                    },
-                    {
-                        content: 'Посещения',
-                        uri: '/visits',
-                        adminRequired: false
-                    },
-                    {
-                        content: 'Медикаменты',
-                        uri: '/medical-supplies',
-                        adminRequired: false
-                    },
-                    {
-                        content: 'Врачи',
-                        uri: '/doctors',
-                        adminRequired: true
-                    }
-                ]
+
             }
         },
         methods: {
-            routeTo(uri) {
-                this.$router.push(uri)
+            getData(method, route) {
+                this.$store.dispatch(method)
+                    .then(() => {
+                        this.$router.push(route)
+                    })
             }
+        },
+        computed: {
+            ...mapState(['user'])
         }
     }
 </script>
@@ -50,6 +46,7 @@
         flex-direction: column;
         width: 500px;
         margin: 0 auto;
+
         button {
             height: 50px;
         }

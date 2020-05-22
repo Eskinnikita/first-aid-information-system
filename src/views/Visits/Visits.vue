@@ -1,6 +1,7 @@
 <template>
     <div class="thin-container">
-        <h1 style="margin-bottom: 20px" class="page-title">Посещения</h1>
+        <h1 class="page-title">Посещения</h1>
+        <div style="margin-bottom: 20px" >Добавление посещений происходит через карточку пациента!</div>
         <div class="thin-container__controls">
         </div>
         <visit-snippet v-for="(visit, index) in visitsStore.visits" :key="index" :visit="visit"/>

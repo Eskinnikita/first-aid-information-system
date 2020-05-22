@@ -25,7 +25,7 @@
         <div class="patient-view__row">
             <strong>Учебная группа:</strong> {{ this.patient.groupNum }}
         </div>
-        <div class="patient-view__row">
+        <div class="patient-view__row" v-if="this.patient.phoneNumber">
             <strong>Номер телефона:</strong> {{ this.patient.phoneNumber }}
         </div>
         <div class="patient-view__visits">

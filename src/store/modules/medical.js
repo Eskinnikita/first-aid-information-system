@@ -16,11 +16,14 @@ export const mutations = {
 }
 export const actions = {
     async getMedicals({commit}) {
+        commit('SET_LOADER', true)
         try {
             const res = await apiService.getAll(route)
             commit('SET_MEDICALS', res.data)
+            commit('SET_LOADER', false)
         } catch (e) {
             commit('SET_TOAST', {message: e.message, status: 'error'})
+            commit('SET_LOADER', false)
         }
     },
     async addMedical({commit}, medicalItem) {

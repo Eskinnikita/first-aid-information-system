@@ -18,6 +18,9 @@ export const mutations = {
     SET_VISITS(state, visits) {
         state.visits = visits
     },
+    SET_EMPTY_VISIT(state) {
+        state.visit = null
+    },
     SET_VISIT_TO_UPDATE(state, visit) {
         state.visitToUpdate = visit
     },
@@ -34,13 +37,16 @@ export const mutations = {
 }
 export const actions = {
     async getVisits({commit}) {
+        commit('SET_LOADER', true)
         try {
             const res = await apiService.getAll(route)
             console.log(res)
             commit('SET_VISITS', res.data)
+            commit('SET_LOADER', false)
         }
         catch(e) {
             commit('SET_TOAST', {message: e.message, status: 'error'})
+            commit('SET_LOADER', false)
         }
     },
     async addVisit({commit}, visit) {
@@ -53,12 +59,15 @@ export const actions = {
         }
     },
     async getVisitById({commit}, id) {
+        commit('SET_LOADER', true)
         try {
             const res = await apiService.getById(route, id)
             console.log(res.data)
             commit('SET_VISIT', res.data)
+            commit('SET_LOADER', false)
         } catch (e) {
             commit('SET_TOAST', {message: e.message, status: 'error'})
+            commit('SET_LOADER', false)
         }
     },
     async getVisitToUpdate({commit}, id) {

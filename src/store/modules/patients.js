@@ -27,19 +27,25 @@ export const mutations = {
 }
 export const actions = {
     async getPatients({commit}) {
+        commit('SET_LOADER', true)
         try {
             const res = await apiService.getAll('patients')
             commit('SET_PATIENTS', res.data)
+            commit('SET_LOADER', false)
         } catch (e) {
             commit('SET_TOAST', {message: e.message, status: 'error'})
+            commit('SET_LOADER', false)
         }
     },
     async getPatientById({commit}, id) {
+        commit('SET_LOADER', true)
         try {
             const res = await apiService.getById('patients', id)
             commit('SET_PATIENT_BY_ID', res.data)
+            commit('SET_LOADER', false)
         } catch (e) {
             commit('SET_TOAST', {message: e.message, status: 'error'})
+            commit('SET_LOADER', false)
         }
     },
     async addPatient({commit}, patient) {

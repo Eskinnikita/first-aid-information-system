@@ -15,6 +15,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+    console.log(req.body)
     pool.query(`INSERT INTO notes (visitId, noteTarget)
     VALUES (
     ${req.body.visitId}, 

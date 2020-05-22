@@ -3,7 +3,13 @@
         <h2>Добавление посещения</h2>
         <div class="input-block">
             <label for="1">Тема обращения<span class="required-sign">*</span></label>
-            <input v-model="visit.title" type="text" id="1">
+            <input
+                    v-model="visit.title"
+                    type="text"
+                    id="1"
+                    :class="{'invalid-input': ($v.visit.title.$dirty && !$v.visit.title.required)}"
+            >
+            <span class="input-block__error" v-if="$v.visit.title.$dirty && !$v.visit.title.required">Введите тему обращения</span>
         </div>
         <div class="input-block">
             <label for="3">Дата и время посещения (текущие по умолчанию)</label>
@@ -23,6 +29,7 @@
 </template>
 
 <script>
+    import {required} from 'vuelidate/lib/validators'
     import {mapState} from 'vuex'
     export default {
         mounted() {
@@ -44,12 +51,23 @@
                 }
             }
         },
+        validations: {
+            visit: {
+                title: {required}
+            }
+        },
         methods: {
             addVisit() {
-                this.visit.patientId = this.patientsStore.patient.id
-                this.visit.doctorId = this.user.id
-                this.$store.dispatch('addVisit', this.visit)
-                .then(() => {this.$router.push(`/patient-view/${this.patientsStore.patient.id}`)})
+                if (this.$v.$invalid) {
+                    this.$v.$touch()
+                } else {
+                    this.visit.patientId = this.patientsStore.patient.id
+                    this.visit.doctorId = this.user.id
+                    this.$store.dispatch('addVisit', this.visit)
+                        .then(() => {
+                            this.$router.push(`/patient-view/${this.patientsStore.patient.id}`)
+                        })
+                }
             },
             getLocalDate(value) {
                 const offset = new Date().getTimezoneOffset() * 1000 * 60
@@ -58,8 +76,14 @@
                 return date.substring(0, 16)
             },
             updateVisit() {
-                this.$store.dispatch(`updateVisit`, this.visit)
-                .then(() => {this.$router.push(`/visit-view/${this.visit.id}`)})
+                if (this.$v.$invalid) {
+                    this.$v.$touch()
+                } else {
+                    this.$store.dispatch(`updateVisit`, this.visit)
+                        .then(() => {
+                            this.$router.push(`/visit-view/${this.visit.id}`)
+                        })
+                }
             }
         },
         computed: {

@@ -5,7 +5,7 @@
             <button class="btn btn__empty" @click="goToVisitDetails">Подробнее</button>
         </div>
         <div class="visit-history-snippet__text">
-            <p>{{shortComplaint}}</p>
+            <p v-if="visit.complaint">{{shortComplaint}}</p>
             <span>Дата посещения: {{convertDateFromJsToSql(visit.visitDate)}}</span>
         </div>
     </div>
@@ -34,6 +34,7 @@
                 return [day,month,year].join('.');
             },
             goToVisitDetails() {
+                this.$store.commit('SET_EMPTY_VISIT')
                 this.$store.commit('SET_BACK_STATUS', 1)
                 this.$router.push(`/visit-view/${this.visit.id}`)
             }

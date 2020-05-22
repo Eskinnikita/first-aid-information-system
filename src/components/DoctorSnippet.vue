@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="doctor-snippet__content">
-            <p>
+            <p v-if="doctor.phoneNumber">
                 Номер телефона: {{doctor.phoneNumber}}
             </p>
             <p>
