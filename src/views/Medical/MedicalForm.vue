@@ -12,11 +12,11 @@
             <span class="input-block__error" v-if="$v.medical.name.$dirty && !$v.medical.name.required">Введите название медикамента</span>
         </div>
         <div class="input-block">
-            <label for="quantity">Название медикамента</label>
+            <label for="quantity">Необходимое количетсво</label>
             <input v-model="medical.quantity" type="number" id="quantity">
         </div>
         <div class="input-block">
-            <label for="availableQuantity">Название медикамента</label>
+            <label for="availableQuantity">Доступное количество</label>
             <input v-model="medical.availableQuantity" type="number" id="availableQuantity">
         </div>
         <button class="btn" @click="addMedical" style="width: 150px">Добавить</button>
@@ -50,6 +50,17 @@
                     this.$store.dispatch('addMedical', this.medical)
                         .then(() => this.$router.push('/medical-supplies'))
                 }
+            }
+        },
+        watch: {
+            medical: {
+                handler: function() {
+                    if (+this.medical.quantity < 0 )
+                        this.medical.quantity = 0
+                    if(+this.medical.availableQuantity < 0)
+                        this.medical.availableQuantity = 0
+                },
+                deep: true
             }
         }
     }

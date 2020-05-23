@@ -1,11 +1,8 @@
-const mysql = require("mysql2");
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require('cors')
 
 const app = express();
-const urlencodedParser = bodyParser.urlencoded({extended: false});
-
-const pool = require('./connection/pool')
 
 const patientsRoutes = require('./routes/patients')
 const loginRoutes = require('./routes/login')
@@ -18,13 +15,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }))
 app.use(bodyParser.json())
-
-app.use(async (req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    next();
-});
+app.use(cors())
 
 app.use('/login', loginRoutes)
 app.use('/patients', patientsRoutes)
@@ -33,6 +24,6 @@ app.use('/notes', notesRoutes)
 app.use('/doctors', doctorsRoutes)
 app.use('/medical', medicalsRoutes)
 
-app.listen(3000, function () {
+app.listen(8082, function () {
     console.log("Соединение установлено");
 });

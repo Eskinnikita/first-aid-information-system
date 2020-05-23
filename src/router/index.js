@@ -14,7 +14,7 @@ import DoctorForm from "../views/Doctors/DoctorForm"
 import Medical from "../views/Medical/Medical"
 import MedicalForm from "../views/Medical/MedicalForm"
 
-import store from '../store/index'
+import store from '../store'
 
 
 Vue.use(VueRouter)

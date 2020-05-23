@@ -60,16 +60,11 @@ router.post('/', (req, res) => {
         });
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
     const id = req.params.id
-    pool.query(`DELETE FROM patients WHERE id=${id}`,
-        function (err, results) {
-            if (err) {
-                res.status(500).send({message: 'Ошибка удаления', status: 'error'})
-            } else {
-                res.status(201).send({message: 'Успешно удалено', status: 'success'})
-            }
-        });
+    await poolQuery(`DELETE FROM patients WHERE id=${id}`)
+    await poolQuery(`DELETE FROM visits WHERE patientId=${id}`)
+    res.status(201).send({message: 'Успешно удалено', status: 'success'})
 })
 
 router.put('/', (req, res) => {
